@@ -154,15 +154,22 @@ def trip_duration_stats(df):
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
+def user_stats(df):
+    """Displays statistics on bikeshare users."""
 
-        
-def  display_data(df):
-    view_data = input('Would you like to view 5 rows of individual trip data? Enter yes or no').lower()
-    start_loc = 0
-    while (input == 'yes'):
-         print(df.iloc[0:4])
-    start_loc += 5
-    view_data = input("Do you wish to continue?: ").lower()
+    print('\nCalculating User Stats...\n')
+    start_time = time.time()
+
+    # TO DO: Display counts of user types
+    user_types = df['User Type'].value_counts()
+    print('The user types : ', user_types)
+
+    # TO DO: Display counts of gender
+    try:
+        the_gender = df['Gender'].value_counts()
+        print('The gender',the_gender)
+    except KeyError:
+        print('there is no gender data')
 
     # TO DO: Display earliest, most recent, and most common year of birth
 
@@ -187,6 +194,13 @@ def  display_data(df):
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
+def display_data(df):
+    view_data = input('\nWould you like to view 5 rows of individual trip data? Enter yes or no\n')
+    start_loc = 0
+    while (view_data):
+        print(df.iloc[start_loc:start_loc+5])
+        start_loc += 5
+        view_data = input("Do you wish to continue?: ").lower()
 
 def main():
     while True:
@@ -196,6 +210,9 @@ def main():
         time_stats(df)
         station_stats(df)
         trip_duration_stats(df)
+        user_stats(df)
+        display_data(df)
+
 
         restart = input('\nWould you like to restart? Enter yes or no.\n')
         if restart.lower() != 'yes':
